@@ -14,10 +14,11 @@ import {
   useColorModeValue,
   Link,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { RegisterAction } from "../action/userAction";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
@@ -27,9 +28,20 @@ export default function Signup() {
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { loading, userInfo, error } = useSelector((state) => {
     return state.userRegster;
   });
+
+  useEffect(() => {
+    let isUser = localStorage.getItem("userInfo")
+      ? JSON.parse(localStorage.getItem("userInfo"))
+      : null;
+    console.log(isUser, "isUserisUserisUserisUserisUser");
+    if (isUser) {
+      navigate("/");
+    }
+  }, [userInfo]);
 
   //submitHandler
   const submitHandler = (e) => {

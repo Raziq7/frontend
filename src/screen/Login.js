@@ -71,7 +71,7 @@ export default function Login() {
     <Stack minH={"100vh"} direction={{ base: "column", md: "row" }}>
       <Flex p={8} flex={1} align={"center"} justify={"center"}>
         <Stack spacing={4} w={"full"} maxW={"md"}>
-          <Heading fontSize={"2xl"}>Sign in to your account</Heading>
+          <Heading fontSize={"2xl"}>Login in to your account</Heading>
           <form onSubmit={formik.handleSubmit}>
             {error && <Text>{error}</Text>}
             <FormControl id="email">
@@ -112,6 +112,9 @@ export default function Login() {
               <Button>Forgot Password</Button>
             </Link>
           </form>
+          <Link to="/signup">
+            <Button colorScheme="blue">To Create Account</Button>
+          </Link>
         </Stack>
       </Flex>
       <Flex flex={1}>

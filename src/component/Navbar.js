@@ -28,6 +28,10 @@ export default function Navbar() {
     localStorage.removeItem("userInfo");
     navigate("/login");
   };
+  const Signup = () => {
+    localStorage.removeItem("userInfo");
+    navigate("/signup");
+  };
   return (
     <>
       <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
@@ -72,6 +76,12 @@ export default function Navbar() {
                     {" "}
                     <Link onClick={logOut} to="/login">
                       Logout
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    {" "}
+                    <Link onClick={Signup} to="/signup">
+                      Signup
                     </Link>
                   </MenuItem>
                 </MenuList>

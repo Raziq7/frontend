@@ -17,13 +17,15 @@ import { AddressShowAction, deleteAction } from "../action/userAction";
 export default function ViewProfile() {
   const dspatch = useDispatch();
   const navigate = useNavigate();
-  useEffect(() => {
-    dspatch(AddressShowAction());
-  }, []);
 
   const { loading, adressInfo, error } = useSelector((state) => {
     return state.AddressShow;
   });
+
+  console.log(adressInfo, "adressInfoadressInfoadressInfoadressInfoadressInfo");
+  useEffect(() => {
+    dspatch(AddressShowAction());
+  }, []);
 
   const deleteClick = (emailorphonenumber) => {
     dspatch(deleteAction(emailorphonenumber));
@@ -67,13 +69,13 @@ export default function ViewProfile() {
         <Text fontWeight={600} color={"gray.500"} mb={4}>
           {adressInfo && adressInfo.emailorphonenumber}
         </Text>
-        <Text
+        {/* <Text
           textAlign={"center"}
           color={useColorModeValue("gray.700", "gray.400")}
           px={3}
         >
-          Adress: {adressInfo && adressInfo.address[0].address}
-        </Text>
+          Adress: {adressInfo ? adressInfo.address[0].address : null}
+        </Text> */}
 
         <Stack mt={8} direction={"row"} spacing={4}>
           <Link to="/ChangPassword">

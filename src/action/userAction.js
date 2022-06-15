@@ -122,24 +122,25 @@ export const imageUploadAction = (file) => async (dispatch, getState) => {
     formData.append("files", file);
 
     let isUser = JSON.parse(localStorage.getItem("userInfo"));
-    console.log(isUser.tokens, "isUser.tokensisUser.tokensisUser.tokens");
+    console.log(isUser.token, "isUser.tokensisUser.tokensisUser.tokens");
 
+    const config = {
+      headers: {
+        Authorization: `Bearer ${isUser.token ? isUser.token : isUser.tokens}`,
+      },
+    };
     dispatch({ type: IMAGE_UPLOAD_REQUEST });
 
     let { data } = await axios.put(
       "https://api.oopacks.com/api/test/upload",
       formData,
-      {
-        headers: {
-          Authorization: `Bearer ${isUser.tokens}`,
-        },
-      }
+      config
     );
     console.log(data, "sdfjfskdjfhj");
 
     dispatch({ type: IMAGE_UPLOAD_SUCCESS, payload: data });
   } catch (error) {
-    console.log(error.response.data, "errorerrorerrorerrorerror");
+    console.log(error, "errorerrorerrorerrorerror");
     dispatch({
       type: IMAGE_UPLOAD_ERR,
       payload:
@@ -160,11 +161,10 @@ export const AddressShowAction = () => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${isUser.tokens}`,
+        Authorization: `Bearer ${isUser.token ? isUser.token : isUser.tokens}`,
       },
     };
-    console.log(isUser, "fdgsdjkfglsjkdfgkljsdfgsjdfghsdjkdk");
+    console.log(isUser.token, "fdgsdjkfglsjkdfgkljsdfgsjdfghsdjkdk");
 
     let { data } = await axios.get(
       "https://api.oopacks.com/api/test/profile",
@@ -196,14 +196,14 @@ export const ChangePasswordAction = (obj) => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${isUser.tokens}`,
+        Authorization: `Bearer ${isUser.token ? isUser.token : isUser.tokens}`,
       },
     };
     dispatch({ type: CHANGE_PASSWORD_REQUEST });
     let { data } = await axios.put(
       "https://api.oopacks.com/api/test/changepassword",
       config,
+
       {
         oldPassword,
         newPassword,
@@ -234,7 +234,7 @@ export const ChangeAddrssAction = (obj) => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${isUser.tokens}`,
+        Authorization: `Bearer ${isUser.token ? isUser.token : isUser.tokens}`,
       },
     };
     dispatch({ type: CHANGE_ADRESS_REQUEST });
@@ -273,7 +273,9 @@ export const deleteAction =
 
       const config = {
         headers: {
-          Authorization: `Bearer ${isUser.tokens}`,
+          Authorization: `Bearer ${
+            isUser.token ? isUser.token : isUser.tokens
+          }`,
         },
       };
       dispatch({ type: DELETE_REQUEST });
@@ -310,7 +312,9 @@ export const SendOtpAction =
 
       const config = {
         headers: {
-          Authorization: `Bearer ${isUser.tokens}`,
+          Authorization: `Bearer ${
+            isUser.token ? isUser.token : isUser.tokens
+          }`,
         },
       };
       dispatch({ type: OTP_SEND_REQUEST });
